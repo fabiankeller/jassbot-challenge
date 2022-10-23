@@ -66,9 +66,13 @@ const JsonResultProxy = {
 };
 
 export function create(fileName) {
+    if (!fs.existsSync('logs_')) {
+        fs.mkdirSync('logs_');
+    }
+
     const obj = Object.create(JsonResultProxy);
     obj.hasResults = false;
-    obj.fileWriter = new fs.WriteStream(fileName + '.json');
+    obj.fileWriter = new fs.WriteStream('logs_/' + fileName + '.json');
     obj.fileWriter.write('[');
     obj.fileWriter.on('error', Logger.error);
     return obj;
