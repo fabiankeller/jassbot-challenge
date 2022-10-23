@@ -6,3 +6,4 @@ bower_components
 npm-debug.log
 build/
 .DS_Store
+logs_/

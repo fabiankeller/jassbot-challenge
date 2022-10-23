@@ -1,4 +1,4 @@
-FROM node
+FROM node:14
 
 # Create app directory
 RUN mkdir -p /usr/src/app
@@ -10,9 +10,6 @@ RUN npm install
 
 # Bundle app source
 COPY . /usr/src/app
-
-ENV TOURNAMENT_ROUNDS 5
-ENV TOURNAMENT_COUNTING true
 
 EXPOSE 3000
 CMD [ "npm", "start" ]
