@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "jassbot-challenge-server-deployment"
+  labels:
+    app: jassbot-challenge-server
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app: jassbot-challenge-server
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: jassbot-challenge-server
+    spec:
+      containers:
+        - name: jassbot-challenge-server
+          image: docker-registry-internal.netcetera.com/fke/jassbotchallenge:latest
+          env:
+            - name: TOURNAMENT_LOGGING
+              value: "false"
+            - name: TOURNAMENT_ROUNDS
+              value: "5"
+            - name: TOURNAMENT_COUNTING
+              value: "true"
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+                cpu: "2000m"
+                memory: "1024Mi"
+            limits:
+                cpu: "2000m"
+                memory: "1024Mi"
